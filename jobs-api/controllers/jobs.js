@@ -10,7 +10,7 @@ const updateJob = async (req, res) => {
   res.send('Edit job route')
 }
 const createJob = async (req, res) => {
-  res.send('Create job route')
+  res.json(req.user)
 }
 const deleteJob = async (req, res) => {
   res.send('Delete job route')
