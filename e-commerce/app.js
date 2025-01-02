@@ -14,17 +14,24 @@ const errorHandlerMiddleware = require('./middleware/error-handler');
 
 //other packages
 const morgan = require('morgan');
-
+const cookieParser = require('cookie-parser');
 //connectdb
 const connectDB = require('./db/connect');
 
 app.use(morgan('tiny'));
 app.use(express.json());
+app.use(cookieParser(process.env.JWT_SECRET)); //signing cookies
 
 //routes
 app.get('/', (req, res) => {
   res.send('Hi from server');
 });
+
+app.get('/api/v1/', (req, res) => {
+  console.log(req.signedCookies);
+  res.send('Hi from server');
+});
+
 app.use('/api/v1/auth', authRouter);
 app.use(notFoundErrorMiddleware);
 app.use(errorHandlerMiddleware);
